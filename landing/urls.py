@@ -6,5 +6,5 @@ app_name = 'landing'
 
 
 urlpatterns = [
-    path('home', home_view, name='home'),
+    path('', home_view, name='home'),
 ]
