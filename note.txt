@@ -17,3 +17,28 @@ git add .
 Email address: mstlaur@gmail.com
 Password: usual avec maj
 
+
+
+
+
+-----railway----------
+
+# Install Railway CLI
+npm install -g @railway/cli
+
+
+# Login to Railway
+railway login
+
+
+# Link a project
+railway link
+
+
+# Deploy project
+railway deploy
+
+
+# Start local development
+railway run
+
