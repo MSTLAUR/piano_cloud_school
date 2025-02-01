@@ -94,12 +94,8 @@ WSGI_APPLICATION = 'cloudschool.wsgi.application'
 
 
 if os.environ.get('RAILWAY_ENVIRONMENT'):
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=os.environ.get('DATABASE_URL'),
-            conn_max_age=600
-        )
-    }
+     db_url = os.environ["DATABASE_URL"]
+     DATABASES = {"default": dj_database_url.parse(db_url)}
 else:
     DATABASES = {
         'default': {
