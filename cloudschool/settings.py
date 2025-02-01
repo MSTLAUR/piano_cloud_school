@@ -92,39 +92,16 @@ WSGI_APPLICATION = 'cloudschool.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-database_url = os.environ.get('DATABASE_URL')
-print(f"Database URL found: {'Yes' if database_url else 'No'}")
-
-if database_url:
-    db_config = dj_database_url.parse(database_url)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': db_config['NAME'],
-            'USER': db_config['USER'],
-            'PASSWORD': db_config['PASSWORD'],
-            'HOST': db_config['HOST'],
-            'PORT': db_config['PORT'],
-            'OPTIONS': {
-                'sslmode': 'require'
-            },
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'JwBqJyGfxYMwljsJYmSiqhZuEPnapVoa',
+        'HOST': 'postgres.railway.internal',
+        'PORT': '5432',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DB_NAME'),
-            'USER': os.environ.get('DB_USER'),
-            'PASSWORD': os.environ.get('DB_PASSWORD'),
-            'HOST': os.environ.get('DB_HOST'),
-            'PORT': os.environ.get('DB_PORT'),
-        }
-    }
-
-# Debug print
-print("Database HOST:", DATABASES['default'].get('HOST'))
-print("Database PORT:", DATABASES['default'].get('PORT'))
+}
 
 
 
