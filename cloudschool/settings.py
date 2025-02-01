@@ -92,20 +92,25 @@ WSGI_APPLICATION = 'cloudschool.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-
 database_url = os.environ.get('DATABASE_URL')
 print(f"Database URL found: {'Yes' if database_url else 'No'}")
 
 if database_url:
+    db_config = dj_database_url.parse(database_url)
     DATABASES = {
         'default': {
-            **dj_database_url.parse(database_url),
             'ENGINE': 'django.db.backends.postgresql',
-            'CONN_MAX_AGE': 600,
+            'NAME': db_config['NAME'],
+            'USER': db_config['USER'],
+            'PASSWORD': db_config['PASSWORD'],
+            'HOST': db_config['HOST'],
+            'PORT': db_config['PORT'],
+            'OPTIONS': {
+                'sslmode': 'require'
+            },
         }
     }
 else:
-    # Fallback for local development
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -117,8 +122,9 @@ else:
         }
     }
 
-# Add this for debugging
-print("Database config:", DATABASES['default'].get('ENGINE'))
+# Debug print
+print("Database HOST:", DATABASES['default'].get('HOST'))
+print("Database PORT:", DATABASES['default'].get('PORT'))
 
 
 
