@@ -35,11 +35,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = "True"
 
-ALLOWED_HOSTS = [
-  'localhost',
-  '127.0.0.1',
-  
-  'pianocloudschool-production.up.railway.app']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -93,14 +89,7 @@ WSGI_APPLICATION = 'cloudschool.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
-    }
+   
 }
 
 
@@ -158,5 +147,14 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 
-MEDIA_URL = '/media/'
+MEDIA_DATABASES = {}  # Remove database for now since you mentioned not needing it
+
+# Also add these settings for static files
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+
+
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
