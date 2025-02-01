@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piano Teacher CRM - Simplify Your Teaching Business</title>
+    <link rel="stylesheet" href="{% static 'landing/css/styles.css' %}">
+    <!-- PrimeVue CSS -->
+    <link href="https://unpkg.com/primevue/resources/themes/saga-blue/theme.css" rel="stylesheet">
+    <link href="https://unpkg.com/primevue/resources/primevue.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <nav class="nav-container">
+            <img src="{% static 'landing/images/logo.png' %}" alt="Piano CRM Logo" class="logo">
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#feedback">Feedback</a>
+            </div>
+        </nav>
+        
+        <div class="hero-content">
+            <h1>Transform Your Piano Teaching Business</h1>
+            <p class="hero-subtitle">The all-in-one CRM designed specifically for piano teachers</p>
+            
+            <div class="waitlist-form">
+                <h3>Join the Waiting List</h3>
+                <form id="waitlist-form" @submit.prevent="handleSubmit">
+                    <input type="email" v-model="email" placeholder="Enter your email" required>
+                    <button type="submit" class="cta-button">Get Early Access</button>
+                </form>
+                <div class="social-proof">
+                    <p>🎹 Join 200+ piano teachers already on the waiting list</p>
+                    <div class="teacher-avatars">
+                        <!-- Add small circular avatars here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <h2>Upcoming Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>Course Creation</h3>
+                <p>Instantly create and manage subscription-based courses for your students</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3>Automated Billing</h3>
+                <p>Say goodbye to payment tracking - automated billing handles everything</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎵</div>
+                <h3>Digital Products</h3>
+                <p>Create and sell specialized courses with video content and PDFs</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>Student Communication</h3>
+                <p>Easy messaging system for schedule changes and updates</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Financial Tracking</h3>
+                <p>Monitor your income and expenses in one place</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feedback Section -->
+    <section id="feedback" class="feedback">
+        <h2>Help Shape the Future</h2>
+        <p>Which features would you like to see?</p>
+        
+        <div class="feedback-options">
+            <div class="option-cards">
+                <div class="option-card" v-for="option in predefinedOptions" :key="option.id">
+                    <input type="radio" :id="option.id" name="feature" :value="option.value">
+                    <label :for="option.id">{{ option.label }}</label>
+                </div>
+            </div>
+            
+            <div class="custom-feature">
+                <h3>Have another idea?</h3>
+                <textarea placeholder="Tell us what feature you'd love to see..." rows="3"></textarea>
+                <button class="submit-feedback">Submit Feedback</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <img src="{% static 'landing/images/logo.png' %}" alt="Piano CRM Logo" class="footer-logo">
+            <p>© 2025 Piano Teacher CRM. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

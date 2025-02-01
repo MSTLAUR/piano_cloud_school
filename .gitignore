@@ -1,3 +1,32 @@
+<<<<<<< HEAD
+=======
+venv/
+.venv/
+*.pyc
+__pycache__/
+db.sqlite3
+.env
+.venv
+C:\Users\ALIENWARE R1\Local Sites\CRM2\venv
+poetry.lock
+node_modules/
+npm-debug.log*
+
+
+# IDE - VSCode
+CRM2/staticfiles/vendors
+
+
+#local CDN
+local_cdn/
+
+# Ignore collected static files
+staticfiles/
+
+
+
+
+>>>>>>> master
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -8,6 +37,12 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+<<<<<<< HEAD
+=======
+env/
+venv/
+ENV/
+>>>>>>> master
 build/
 develop-eggs/
 dist/
@@ -24,6 +59,7 @@ share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+<<<<<<< HEAD
 MANIFEST
 
 # PyInstaller
@@ -169,3 +205,26 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+=======
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+media
+
+# Ignore collected static files
+staticfiles/
+
+# Ignore node_modules
+node_modules/
+
+# Ignore environment variables
+.env
+
+
+#personnal
+prokect_ideas.txt
+>>>>>>> master
