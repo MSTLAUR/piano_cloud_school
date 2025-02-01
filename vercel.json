@@ -5,8 +5,8 @@
     }],
     "routes": [
         {
-            "src": "/static/(.*)",
-            "dest": "/static/$1"
+            "src": "/(.*)",
+            "dest": "vercel_cloudschool/wsgi.py"
         },
         {
             "src": "/(.*)",
