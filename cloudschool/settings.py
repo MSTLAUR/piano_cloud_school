@@ -19,6 +19,7 @@ from django.core.wsgi import get_wsgi_application
 import dj_database_url
 from urllib.parse import urlparse, parse_qsl
 
+from statsig_python_core import Statsig, StatsigOptions
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +27,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(
     
 )
+
+statsig = os.getenv("secret-key")
+statsig.initialize().wait()
+
+
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
