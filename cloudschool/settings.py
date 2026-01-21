@@ -41,6 +41,16 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://cloudschool.app',
+    'https://*.cloudschool.app',
+    
+]
+
+# If using Railway's automatic domain
+CSRF_COOKIE_SECURE = not DEBUG  # Only use secure cookies in production
+SESSION_COOKIE_SECURE = not DEBUG
+
 
 # Application definition
 
