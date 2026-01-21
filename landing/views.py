@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import JsonResponse
 from .forms import WaitlistForm, FeedbackForm
+from .models import get_client_ip, get_location_from_ip
 
 
 def home_view(request):
@@ -20,7 +21,19 @@ def waitlist_submit(request):
     if request.method == 'POST':
         form = WaitlistForm(request.POST)
         if form.is_valid():
-            form.save()
+            # Get IP address and location data
+            lead = form.save(commit=False)
+            lead.ip_address = get_client_ip(request)
+            location_data = get_location_from_ip(lead.ip_address)
+            
+            if location_data:
+                lead.country = location_data.get('country')
+                lead.city = location_data.get('city')
+                lead.latitude = location_data.get('latitude')
+                lead.longitude = location_data.get('longitude')
+            
+            lead.save()
+            
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
                     'success': True,
@@ -45,7 +58,19 @@ def feedback_submit(request):
     if request.method == 'POST':
         form = FeedbackForm(request.POST)
         if form.is_valid():
-            form.save()
+            # Get IP address and location data
+            lead = form.save(commit=False)
+            lead.ip_address = get_client_ip(request)
+            location_data = get_location_from_ip(lead.ip_address)
+            
+            if location_data:
+                lead.country = location_data.get('country')
+                lead.city = location_data.get('city')
+                lead.latitude = location_data.get('latitude')
+                lead.longitude = location_data.get('longitude')
+            
+            lead.save()
+            
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
                     'success': True,
