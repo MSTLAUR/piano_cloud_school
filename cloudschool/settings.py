@@ -105,19 +105,14 @@ if ENVIRONMENT == 'development':
     print("LOG: Successfully connected to SQLite database (db.sqlite3)")
 
 else:
-    tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
-
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': tmpPostgres.path.replace('/', ''),
-        'USER': tmpPostgres.username,
-        'PASSWORD': tmpPostgres.password,
-        'HOST': tmpPostgres.hostname,
-        'PORT': 5432,
-        'OPTIONS': dict(parse_qsl(tmpPostgres.query)),
+        'default': dj_database_url.config(
+            default=os.getenv('DATABASE_URL'),
+            conn_max_age=600,
+            conn_health_checks=True,
+            ssl_require=True
+        )
     }
-}
     print(f"LOG: Successfully connected to CLOUD DB ")
 # ...existing code...
 
