@@ -1,22 +1,33 @@
 from django import forms
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, Field, Submit
-from .models import email_lead_models
+from .models import EmailLead
 
 
-        
-  
-        
-class AdminCreationForm(forms.ModelForm):
-
-    
-    
+class WaitlistForm(forms.ModelForm):
     class Meta:
-        model = email_lead_models
-        fields = ('email', 'name')
-        
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Submit'))
+        model = EmailLead
+        fields = ['email']
+        widgets = {
+            'email': forms.EmailInput(attrs={
+                'placeholder': 'Enter your email',
+                'required': True,
+                'class': 'waitlist-email-input'
+            })
+        }
+
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = EmailLead
+        fields = ['email', 'feature', 'comment']
+        widgets = {
+            'email': forms.EmailInput(attrs={
+                'placeholder': 'Your email address',
+                'required': True,
+                'class': 'feedback-email-input'
+            }),
+            'feature': forms.RadioSelect(),
+            'comment': forms.Textarea(attrs={
+                'placeholder': 'Tell us what feature would make your tutoring life easier...',
+                'rows': 4
+            })
+        }

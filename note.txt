@@ -1,5 +1,7 @@
 .\venv\Scripts\activate 
 
+pip freeze > requirements.txt
+
 
 git status
 
@@ -42,3 +44,12 @@ railway deploy
 # Start local development
 railway run
 
+#super user
+railway run python manage.py createsuperuser
+
+
+# Generate migrations
+railway run python manage.py makemigrations
+
+# Apply migrations
+railway run python manage.py migrate
