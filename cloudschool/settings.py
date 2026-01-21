@@ -28,6 +28,8 @@ env = environ.Env(
 )
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
+
+ENVIRONMENT=os.getenv("ENVIRONMENT")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -35,7 +37,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = "True"
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ['*']
 
@@ -93,7 +95,7 @@ WSGI_APPLICATION = 'cloudschool.wsgi.application'
 
 
 
-if DEBUG == "True":
+if ENVIRONMENT == 'development': 
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
