@@ -1589,6 +1589,34 @@
     </footer>
 
     <script>
+  
+let myStatsigClient;
+
+    // Use the lowercase 'statsig' provided by the v3 client bundle
+    statsig.initialize(
+        'client-FEMUzRhljE2To1XdDdv5701P3fOvN8s7e1jiKQQQySK', 
+        { userID: 'anonymous-' + Date.now() }
+    ).then((client) => {
+        myStatsigClient = client;
+        
+        // Note: 'page_view' is likely already being tracked automatically 
+        // by the web-analytics plugin in your script tag.
+        console.log('Statsig initialized and auto-tracking enabled.');
+        
+    }).catch((error) => {
+        console.error('Statsig initialization failed:', error);
+    });
+
+    // Function to log custom events (e.g., button clicks)
+    function logStatsigEvent(eventName, value = null, metadata = {}) {
+        if (myStatsigClient) {
+            myStatsigClient.logEvent(eventName, value, metadata);
+        }
+    }
+
+        // END OF STAT SIG ///
+
+        
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
