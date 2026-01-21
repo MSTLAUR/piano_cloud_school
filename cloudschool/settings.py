@@ -107,6 +107,10 @@ if ENVIRONMENT == 'development':
 else:
     tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
     
+    # Extract endpoint ID from hostname (first part before the first dot after 'ep-')
+    hostname = tmpPostgres.hostname
+    endpoint_id = hostname.split('.')[0] if hostname and hostname.startswith('ep-') else None
+    
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -117,6 +121,7 @@ else:
             'PORT': tmpPostgres.port or 5432,
             'OPTIONS': {
                 'sslmode': 'require',
+                'options': f'endpoint={endpoint_id}' if endpoint_id else '',
             },
         }
     }
