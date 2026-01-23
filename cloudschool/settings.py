@@ -78,6 +78,8 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    
+    'whitenoise.middleware.WhiteNoiseMiddleware',
    
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -180,7 +182,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Where collectstatic will put files
+
+# Add this to tell Django where to find your app's static files
+STATICFILES_DIRS = [
+    BASE_DIR / 'journalistLanding' / 'static',
+    BASE_DIR / 'landing' / 'static',
+]
+
+# WhiteNoise static files storage for compression and caching
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -196,16 +208,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
-
-
-
-MEDIA_DATABASES = {}  # Remove database for now since you mentioned not needing it
-
-# Also add these settings for static files
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-
-
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
