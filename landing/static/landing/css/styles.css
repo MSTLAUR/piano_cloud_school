@@ -139,7 +139,7 @@ body {
 }
 
 .feature-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: #FF8F5E;
     padding: 2rem;
     border-radius: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
