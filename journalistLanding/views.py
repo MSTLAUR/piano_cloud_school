@@ -38,7 +38,7 @@ def waitlist_submit2(request):
                 })
             else:
                 messages.success(request, 'Thanks for joining! We\'ll be in touch soon.')
-                return redirect('home')
+                return redirect('journalistLanding:home')
         else:
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
@@ -47,8 +47,8 @@ def waitlist_submit2(request):
                 }, status=400)
             else:
                 messages.error(request, 'Please check your email and try again.')
-                return redirect('home')
-    return redirect('home')
+                return redirect('journalistLanding:home')
+    return redirect('journalistLanding:home')
 
 
 def feedback_submit(request):
@@ -75,7 +75,7 @@ def feedback_submit(request):
                 })
             else:
                 messages.success(request, 'Thank you for your feedback!')
-                return redirect('home')
+                return redirect('journalistLanding:home')
         else:
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
@@ -84,5 +84,5 @@ def feedback_submit(request):
                 }, status=400)
             else:
                 messages.error(request, 'Please complete the form and try again.')
-                return redirect('home')
-    return redirect('home')
+                return redirect('journalistLanding:home')
+    return redirect('journalistLanding:home')
