@@ -1950,7 +1950,7 @@ nav {
                 <h2 class="waitlist-title">Ready to ditch<br />the chaos?</h2>
                 <p class="waitlist-subtitle">Join 500+ tutors on the waitlist. Be first when we launch.</p>
 
-                <form id="waitlist-form" class="waitlist-form" onsubmit="handleWaitlistSubmit(event)">
+                <form id="waitlist-form" class="waitlist-form" method="POST" action="{% url 'journalistLanding:waitlist_submit2' %}" onsubmit="handleWaitlistSubmit(event)">
                     {% csrf_token %}
                     <input type="email" name="email" class="input waitlist-input" placeholder="you@email.com" required>
                     <button type="submit" class="btn btn-sunny btn-lg" id="waitlist-submit">Join →</button>
