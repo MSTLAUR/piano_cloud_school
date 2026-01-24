@@ -2,15 +2,14 @@ from django import forms
 from .models import EmailLeadJournalist
 
 
-class WaitlistForm(forms.ModelForm):
+class WaitlistForm2(forms.ModelForm):
     class Meta:
         model = EmailLeadJournalist
         fields = ['email']
         widgets = {
             'email': forms.EmailInput(attrs={
-                'placeholder': 'Enter your email',
-                'required': True,
-                'class': 'waitlist-email-input'
+                'class': 'input',
+                'placeholder': 'you@email.com'
             })
         }
 
@@ -18,16 +17,22 @@ class WaitlistForm(forms.ModelForm):
 class FeedbackForm(forms.ModelForm):
     class Meta:
         model = EmailLeadJournalist
-        fields = ['email', 'feature', 'comment']
+        fields = ['email', 'first_name', 'feature', 'comment']
         widgets = {
             'email': forms.EmailInput(attrs={
-                'placeholder': 'Your email address',
-                'required': True,
-                'class': 'feedback-email-input'
+                'class': 'input',
+                'placeholder': 'your@email.com'
             }),
-            'feature': forms.RadioSelect(),
+            'first_name': forms.TextInput(attrs={
+                'class': 'input',
+                'placeholder': 'Your name'
+            }),
+            'feature': forms.Select(attrs={
+                'class': 'input'
+            }),
             'comment': forms.Textarea(attrs={
-                'placeholder': 'Tell us what feature would make your tutoring life easier...',
+                'class': 'input',
+                'placeholder': 'Tell us what you think...',
                 'rows': 4
             })
         }

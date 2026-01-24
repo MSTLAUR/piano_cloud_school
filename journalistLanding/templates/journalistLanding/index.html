@@ -1621,7 +1621,7 @@ nav {
                     </p>
 
                     <!-- Email form -->
-                    <form class="hero-form fade-in-up" style="animation-delay: 0.4s;" onsubmit="handleHeroFormSubmit(event)">
+                    <form class="hero-form fade-in-up" style="animation-delay: 0.4s;" method="POST" action="{% url 'journalistLanding:waitlist_submit2' %}" onsubmit="handleHeroFormSubmit(event)">
                         {% csrf_token %}
                         <input type="email" name="email" class="input" placeholder="your@email.com" required>
                         <button type="submit" class="btn btn-pink btn-lg">Get Early Access</button>
@@ -1716,7 +1716,7 @@ nav {
     <section class="problems-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title fade-in">Tutoring is <span class="text-electric">chaotic</span></h2>
+                <h2 class="section-title fade-in">Teaching is <span class="text-electric">chaotic</span></h2>
                 <p class="section-subtitle fade-in" style="animation-delay: 0.2s;">Let's be real. Here's what every tutor deals with:</p>
             </div>
 
