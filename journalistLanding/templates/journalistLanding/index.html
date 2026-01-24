@@ -9,6 +9,20 @@
     <!-- Load static files for Django -->
     {% load static %}
     
+
+            <!-- Statsig    -->
+    <script src="https://cdn.jsdelivr.net/npm/@statsig/js-client@3/build/statsig-js-client+session-replay+web-analytics.min.js?apikey=client-FEMUzRhljE2To1XdDdv5701P3fOvN8s7e1jiKQQQySK">
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9TPEG531NB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9TPEG531NB');
+</script>
     <!-- Fonts -->
     
     <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&f[]=general-sans@400,500,600,700&display=swap">
@@ -2052,6 +2066,41 @@ nav {
         </div>
     </footer>
 
-    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/main.js' %}">
+
+     //stat sig modz agent
+        let myStatsigClient;
+
+        // Initialize Statsig
+        const statsig = window.Statsig || window.statsigJsClient;
+        statsig.initialize(
+            'client-FEMUzRhljE2To1XdDdv5701P3fOvN8s7e1jiKQQQySK', 
+            { userID: 'anonymous-' + Date.now() }
+        ).then((client) => {
+            myStatsigClient = client;
+            
+            // Log page view
+            myStatsigClient.logEvent("page_view", null, {
+                page: "landing",
+                timestamp: Date.now()
+            });
+            
+        }).catch((error) => {
+            console.error('Statsig initialization failed:', error);
+        });
+
+        // Function to log custom events
+        function logStatsigEvent(eventName, value = null, metadata = {}) {
+            if (myStatsigClient) {
+                myStatsigClient.logEvent(eventName, value, metadata);
+            }
+        }
+
+        // END OF STAT SIG ///
+
+
+
+
+    </script>
 </body>
 </html>
