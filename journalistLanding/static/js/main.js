@@ -169,12 +169,10 @@ function handleHeroFormSubmit(event) {
       // Reset form
       form.reset();
 
-      // Reset button after 2 seconds
+      // Redirect to thank you page
       setTimeout(() => {
-        submitBtn.textContent = originalBtnText;
-        submitBtn.disabled = false;
-        heroFormSubmitting = false;
-      }, 2000);
+        window.location.href = data.redirect_url || '/thanks/';
+      }, 1500);
     } else {
       // Show error
       submitBtn.textContent = 'Error - Try Again';
@@ -235,12 +233,10 @@ function handleWaitlistSubmit(event) {
       // Reset form
       form.reset();
 
-      // Reset button after 2 seconds
+      // Redirect to thank you page
       setTimeout(() => {
-        submitBtn.textContent = 'Join →';
-        submitBtn.disabled = false;
-        waitlistSubmitting = false;
-      }, 2000);
+        window.location.href = data.redirect_url || '/thanks/';
+      }, 1500);
     } else {
       // Show error
       submitBtn.textContent = 'Error - Try Again';

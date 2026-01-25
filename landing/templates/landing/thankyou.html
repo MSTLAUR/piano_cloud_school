@@ -213,6 +213,207 @@
         .nav-cta:hover { background: var(--primary) !important; }
         .nav-cta::after { display: none !important; }
 
+        /* THANK YOU HERO */
+        .thank-you-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+        }
+
+        .thank-you-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(0, 217, 165, 0.2) 0%, transparent 50%);
+            animation: backgroundPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes backgroundPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .thank-you-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .thank-you-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            animation: bounceIn 1s ease-out 0.3s both;
+            display: inline-block;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .thank-you-content h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .thank-you-content p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease-out 0.7s both;
+        }
+
+        /* Sparkles */
+        .sparkles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkleFloat 3s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        .sparkle::before,
+        .sparkle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: white;
+            transform: translate(-50%, -50%);
+        }
+
+        .sparkle::after {
+            transform: translate(-50%, -50%) rotate(90deg);
+        }
+
+        @keyframes sparkleFloat {
+            0% {
+                transform: translateY(0) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-100px) scale(1) rotate(180deg);
+            }
+            100% {
+                transform: translateY(-200px) scale(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 4s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        .success-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.9s both;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .success-badge span {
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .thank-you-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .thank-you-content p {
+                font-size: 1.1rem;
+            }
+            
+            .thank-you-icon {
+                font-size: 4rem;
+            }
+        }
+
         /* HERO */
         .hero {
             min-height: 100vh;
@@ -1330,6 +1531,23 @@
     </style>
 </head>
 <body>
+    <!-- Thank You Hero Section -->
+    <section class="thank-you-hero">
+        <div class="sparkles" id="sparklesContainer"></div>
+        
+        <div class="thank-you-content">
+            <div class="thank-you-icon">✨</div>
+            <div class="success-badge">
+                <span>🎉</span> Success!
+            </div>
+            <h1>Thank You for Your Interest!</h1>
+            <p>
+                We will send you the next steps as soon as possible to your inbox. 
+                Thanks again for joining us on this journey!
+            </p>
+        </div>
+    </section>
+
     <!-- Toast Notification Container -->
     <div class="toast-container" id="toastContainer"></div>
 
@@ -1367,20 +1585,7 @@
                     math, or anything else. In-person or online. Your students will thank you for using Cloud School.
                 </p>
                 
-                <!-- Email Signup Form -->
-                <form class="hero-email-form" action="{% url 'landing:waitlist_submit' %}" method="POST" id="heroEmailForm">
-                    {% csrf_token %}
-                    <input 
-                        type="email" 
-                        name="email" 
-                        class="hero-email-input" 
-                        placeholder="Enter your email address"
-                        required
-                    >
-                    <button type="submit" class="btn-primary">
-                        Try it for Free <span>→</span>
-                    </button>
-                </form>
+           
 
             
                 <div class="hero-stats">
@@ -1714,12 +1919,7 @@
                         <span>📱 Mobile App</span>
                     </label>
                 </div>
-                <div class="custom-feedback">
-                    <h3>Have another idea? We're all ears! 👂</h3>
-                    <input type="email" name="email" placeholder="Your email address" required>
-                    <textarea name="comment" placeholder="Tell us what feature would make your tutoring life easier..."></textarea>
-                    <button type="submit" class="btn-primary">Submit Feedback</button>
-                </div>
+            
             </form>
             <div id="feedback-message" style="display: none; margin-top: 1rem; padding: 1rem; border-radius: 12px;"></div>
         </div>
@@ -1875,10 +2075,12 @@
                     // Show success toast
                     showToast('success', 'You\'re on the list!', data.message || 'Thanks for joining! We\'ll be in touch soon.');
                     
-                    // Redirect to thank you page
+                    // Reset button after delay
                     setTimeout(() => {
-                        window.location.href = data.redirect_url || '/thanks/';
-                    }, 1500);
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.style.background = '';
+                    }, 2000);
                 } else {
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = originalText;
@@ -1927,10 +2129,12 @@
                     // Show success toast
                     showToast('success', 'You\'re on the list!', data.message || 'Thanks for joining! We\'ll be in touch soon.');
                     
-                    // Redirect to thank you page
+                    // Reset button after delay
                     setTimeout(() => {
-                        window.location.href = data.redirect_url || '/thanks/';
-                    }, 1500);
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.style.background = '';
+                    }, 2000);
                 } else {
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = originalText;
@@ -1981,11 +2185,6 @@
                         o.style.background = '';
                     });
                     showToast('success', 'Thank you!', data.message || 'Your feedback has been submitted.');
-                    
-                    // Redirect to thank you page
-                    setTimeout(() => {
-                        window.location.href = data.redirect_url || '/thanks/';
-                    }, 1500);
                 } else {
                     messageDiv.textContent = 'Error: Please complete the form and try again.';
                     messageDiv.style.display = 'block';
@@ -2014,6 +2213,36 @@
                 this.style.background = 'white';
             });
         });
+
+        // Thank You Page Sparkles Animation
+        function createSparkles() {
+            const container = document.getElementById('sparklesContainer');
+            if (!container) return;
+
+            // Create sparkles
+            for (let i = 0; i < 30; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                sparkle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                container.appendChild(sparkle);
+            }
+
+            // Create floating particles
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 4 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Initialize sparkles on page load
+        window.addEventListener('DOMContentLoaded', createSparkles);
     </script>
 </body>
 </html>

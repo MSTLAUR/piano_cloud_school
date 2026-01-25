@@ -54,11 +54,12 @@ def waitlist_submit(request):
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
                     'success': True,
-                    'message': 'Thanks for joining! We\'ll be in touch soon.'
+                    'message': 'Thanks for joining! We\'ll be in touch soon.',
+                    'redirect_url': '/thanks/'
                 })
             else:
                 messages.success(request, 'Thanks for joining! We\'ll be in touch soon.')
-                return redirect('landing:home')
+                return redirect('landing:thanks')
         else:
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
@@ -108,11 +109,12 @@ def feedback_submit(request):
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
                     'success': True,
-                    'message': 'Thank you for your feedback!'
+                    'message': 'Thank you for your feedback!',
+                    'redirect_url': '/thanks/'
                 })
             else:
                 messages.success(request, 'Thank you for your feedback!')
-                return redirect('landing:home')
+                return redirect('landing:thanks')
         else:
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
@@ -123,3 +125,8 @@ def feedback_submit(request):
                 messages.error(request, 'Please complete the form and try again.')
                 return redirect('landing:home')
     return redirect('landing:home')
+
+
+
+def thanks_view(request):
+    return render(request, 'landing/thankyou.html')

@@ -34,11 +34,12 @@ def waitlist_submit2(request):
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
                     'success': True,
-                    'message': 'Thanks for joining! We\'ll be in touch soon.'
+                    'message': 'Thanks for joining! We\'ll be in touch soon.',
+                    'redirect_url': '/thanks/'
                 })
             else:
                 messages.success(request, 'Thanks for joining! We\'ll be in touch soon.')
-                return redirect('journalistLanding:home')
+                return redirect('landing:thanks')
         else:
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
@@ -71,11 +72,12 @@ def feedback_submit(request):
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
                     'success': True,
-                    'message': 'Thank you for your feedback!'
+                    'message': 'Thank you for your feedback!',
+                    'redirect_url': '/thanks/'
                 })
             else:
                 messages.success(request, 'Thank you for your feedback!')
-                return redirect('journalistLanding:home')
+                return redirect('/thanks/')
         else:
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
