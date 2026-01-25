@@ -37,6 +37,101 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+
+        /* Toast Notification System */
+        .toast-container {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 10px 40px rgba(26, 26, 46, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 300px;
+            max-width: 400px;
+            animation: slideInRight 0.4s ease-out;
+            border-left: 4px solid var(--accent);
+        }
+
+        .toast.success {
+            border-left-color: var(--accent);
+        }
+
+        .toast.error {
+            border-left-color: var(--primary);
+        }
+
+        .toast-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--secondary);
+            margin-bottom: 2px;
+        }
+
+        .toast-message {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--gray);
+            padding: 4px;
+            transition: color 0.2s;
+        }
+
+        .toast-close:hover {
+            color: var(--secondary);
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+        }
+
+        .toast.hiding {
+            animation: slideOutRight 0.3s ease-in forwards;
+        }
+
         body {
             font-family: 'DM Sans', sans-serif;
             background: var(--light);
@@ -264,6 +359,36 @@
             gap: 1rem;
             flex-wrap: wrap;
             margin-bottom: 3rem;
+        }
+
+        .hero-email-form {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            flex-wrap: wrap;
+        }
+
+        .hero-email-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem 1.5rem;
+            border: 2px solid rgba(26, 26, 46, 0.1);
+            border-radius: 50px;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .hero-email-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
+        }
+
+        .hero-email-input::placeholder {
+            color: var(--gray);
         }
 
         .btn-primary {
@@ -1179,6 +1304,18 @@
             }
             .nav-links { display: none; }
             .hero { padding: 3rem 1rem; }
+            .hero-email-form {
+                flex-direction: column;
+                width: 100%;
+            }
+            .hero-email-input {
+                min-width: 100%;
+            }
+            .hero-cta .btn-primary,
+            .hero-cta .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
             .features, .use-cases, .how-it-works, .pricing, .waitlist, .feedback { padding: 4rem 1rem; }
             .footer-content {
                 grid-template-columns: 1fr;
@@ -1193,6 +1330,9 @@
     </style>
 </head>
 <body>
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <nav>
         <a href="#" class="logo">
             <div class="logo-icon">🦉</div>
@@ -1226,10 +1366,23 @@
                     in-app messaging, digital products — whether you teach music, languages, 
                     math, or anything else. In-person or online. Your students will thank you for using Cloud School.
                 </p>
-                <div class="hero-cta">
-                    <a href="#waitlist" class="btn-primary">Get Early Access <span>→</span></a>
-                    <a href="#features" class="btn-secondary">See Features</a>
-                </div>
+                
+                <!-- Email Signup Form -->
+                <form class="hero-email-form" action="{% url 'landing:waitlist_submit' %}" method="POST" id="heroEmailForm">
+                    {% csrf_token %}
+                    <input 
+                        type="email" 
+                        name="email" 
+                        class="hero-email-input" 
+                        placeholder="Enter your email address"
+                        required
+                    >
+                    <button type="submit" class="btn-primary">
+                        Try it for Free <span>→</span>
+                    </button>
+                </form>
+
+            
                 <div class="hero-stats">
                     <div class="stat">
                         <div class="stat-number">500+</div>
@@ -1473,6 +1626,18 @@
             <p>Lock in early access pricing forever. No surprises, no hidden fees.</p>
         </div>
         <div class="pricing-cards">
+            <div class="pricing-card">
+                <h3>Free Plan</h3>
+                <div class="pricing-price">$0<span>/month</span></div>
+                <ul class="pricing-features">
+                    <li>Up to 15 students</li>
+                    <li>Basic scheduling & booking</li>
+                    <li>Student messaging</li>
+                    <li>Email notifications</li>
+                    <li>Manual payment tracking</li>
+                </ul>
+                <a href="#waitlist" class="btn-primary">Get Started Free</a>
+            </div>
             <div class="pricing-card featured">
                 <h3>Early Bird Plan</h3>
                 <div class="pricing-price">$9.99<span>/month</span></div>
@@ -1635,6 +1800,34 @@
 
         // END OF STAT SIG ///
 
+        // Toast Notification Function
+        function showToast(type, title, message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icon = type === 'success' ? '✓' : '⚠';
+            
+            toast.innerHTML = `
+                <div class="toast-icon">${icon}</div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close" onclick="this.parentElement.classList.add('hiding'); setTimeout(() => this.parentElement.remove(), 300);">×</button>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.classList.add('hiding');
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 5000);
+        }
+
 
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
@@ -1653,12 +1846,67 @@
             observer.observe(el);
         });
 
+        // Hero Email Form Submission
+        document.getElementById('heroEmailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = this;
+            const formData = new FormData(form);
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Joining... <span>⏳</span>';
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    submitBtn.innerHTML = 'Welcome! <span>✓</span>';
+                    submitBtn.style.background = 'var(--gradient-cool)';
+                    form.reset();
+                    
+                    // Show success toast
+                    showToast('success', 'You\'re on the list!', data.message || 'Thanks for joining! We\'ll be in touch soon.');
+                    
+                    // Reset button after delay
+                    setTimeout(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.style.background = '';
+                    }, 2000);
+                } else {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                    const errorMsg = data.errors.email ? data.errors.email[0] : 'Please try again';
+                    showToast('error', 'Oops!', errorMsg);
+                }
+            })
+            .catch(error => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+                showToast('error', 'Something went wrong', 'An error occurred. Please try again.');
+            });
+        });
+
         // Waitlist Form Submission
         document.getElementById('waitlist-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const form = this;
             const formData = new FormData(form);
             const messageDiv = document.getElementById('waitlist-message');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Joining... ⏳';
 
             fetch(form.action, {
                 method: 'POST',
@@ -1675,18 +1923,37 @@
                     messageDiv.style.background = 'rgba(0, 217, 165, 0.1)';
                     messageDiv.style.color = '#00A87D';
                     form.reset();
+                    submitBtn.innerHTML = 'Welcome! ✓';
+                    submitBtn.style.background = 'var(--gradient-cool)';
+                    
+                    // Show success toast
+                    showToast('success', 'You\'re on the list!', data.message || 'Thanks for joining! We\'ll be in touch soon.');
+                    
+                    // Reset button after delay
+                    setTimeout(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.style.background = '';
+                    }, 2000);
                 } else {
-                    messageDiv.textContent = 'Error: ' + (data.errors.email ? data.errors.email[0] : 'Please try again');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                    const errorMsg = data.errors.email ? data.errors.email[0] : 'Please try again';
+                    messageDiv.textContent = 'Error: ' + errorMsg;
                     messageDiv.style.display = 'block';
                     messageDiv.style.background = 'rgba(255, 107, 53, 0.1)';
                     messageDiv.style.color = '#FF6B35';
+                    showToast('error', 'Oops!', errorMsg);
                 }
             })
             .catch(error => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
                 messageDiv.textContent = 'An error occurred. Please try again.';
                 messageDiv.style.display = 'block';
                 messageDiv.style.background = 'rgba(255, 107, 53, 0.1)';
                 messageDiv.style.color = '#FF6B35';
+                showToast('error', 'Something went wrong', 'An error occurred. Please try again.');
             });
         });
 
@@ -1717,11 +1984,13 @@
                         o.style.borderColor = 'transparent';
                         o.style.background = '';
                     });
+                    showToast('success', 'Thank you!', data.message || 'Your feedback has been submitted.');
                 } else {
                     messageDiv.textContent = 'Error: Please complete the form and try again.';
                     messageDiv.style.display = 'block';
                     messageDiv.style.background = 'rgba(255, 107, 53, 0.1)';
                     messageDiv.style.color = '#FF6B35';
+                    showToast('error', 'Oops!', 'Please complete the form and try again.');
                 }
             })
             .catch(error => {
@@ -1729,6 +1998,7 @@
                 messageDiv.style.display = 'block';
                 messageDiv.style.background = 'rgba(255, 107, 53, 0.1)';
                 messageDiv.style.color = '#FF6B35';
+                showToast('error', 'Something went wrong', 'An error occurred. Please try again.');
             });
         });
 
